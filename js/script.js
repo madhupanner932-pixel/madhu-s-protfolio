@@ -274,4 +274,37 @@ if (contactForm) {
         // Reset form
         contactForm.reset();
     });
+    // ===========================
+// Mobile Menu Toggle
+// ===========================
+
+const menuBtn = document.querySelector(".menu-btn");
+const navLinksList = document.querySelector(".nav-links");
+
+menuBtn.addEventListener("click", () => {
+    navLinksList.classList.toggle("active");
+    menuBtn.querySelector("i").classList.toggle("fa-bars");
+    menuBtn.querySelector("i").classList.toggle("fa-times");
+});
+
+navLinksList.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinksList.classList.remove("active");
+        menuBtn.querySelector("i").classList.add("fa-bars");
+        menuBtn.querySelector("i").classList.remove("fa-times");
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
