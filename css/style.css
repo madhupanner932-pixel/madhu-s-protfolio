@@ -108,11 +108,11 @@ body{
 }
 
 .hero-content h1{
-    font-size:4rem;
+    font-size:clamp(2rem, 8vw, 4rem);
     line-height:1.1;
     margin-bottom:10px;
+    white-space:nowrap;
 }
-
 .hero-content h2{
     color:#3B82F6;
     margin-bottom:20px;
@@ -725,10 +725,6 @@ footer{
 
     .hero{
         flex-direction:column-reverse;
-    }
-
-    .hero-content h1{
-        font-size:3rem;
     }
 
     .nav-links{
