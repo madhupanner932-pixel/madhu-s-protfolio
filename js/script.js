@@ -199,47 +199,51 @@ stats.forEach(stat => {
 // ===========================
 
 const sections =
-document.querySelectorAll("section");
+document.querySelectorAll("section[id]");
 
 const navLinks =
 document.querySelectorAll(".nav-links a");
 
-window.addEventListener("scroll", () => {
+const navObserver = new IntersectionObserver(
 
-    let current = "";
+(entries) => {
 
-    sections.forEach(section => {
+    entries.forEach(entry => {
 
-        const sectionTop =
-            section.offsetTop - 120;
+        if (entry.isIntersecting) {
 
-        const sectionHeight =
-            section.clientHeight;
+            const id =
+                entry.target.getAttribute("id");
 
-        if (
-            pageYOffset >= sectionTop
-        ) {
-            current =
-                section.getAttribute("id");
+            navLinks.forEach(link => {
+
+                const isActive =
+                    link.getAttribute("href") === "#" + id;
+
+                if (isActive && !link.classList.contains("active")) {
+                    link.classList.add("active");
+                } else if (!isActive && link.classList.contains("active")) {
+                    link.classList.remove("active");
+                }
+
+            });
+
         }
 
     });
 
-    navLinks.forEach(link => {
+},
 
-    const isActive =
-        link.getAttribute("href") === "#" + current;
+{
+    threshold: 0.3,
+    rootMargin: "-120px 0px -60% 0px"
+}
 
-    if (isActive && !link.classList.contains("active")) {
-        link.classList.add("active");
-    } else if (!isActive && link.classList.contains("active")) {
-        link.classList.remove("active");
-    }
+);
 
+sections.forEach(section => {
+    navObserver.observe(section);
 });
-
-});
-
 
 // ===========================
 // Console Message
