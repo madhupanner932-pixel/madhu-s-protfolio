@@ -227,16 +227,16 @@ window.addEventListener("scroll", () => {
 
     navLinks.forEach(link => {
 
+    const isActive =
+        link.getAttribute("href") === "#" + current;
+
+    if (isActive && !link.classList.contains("active")) {
+        link.classList.add("active");
+    } else if (!isActive && link.classList.contains("active")) {
         link.classList.remove("active");
+    }
 
-        if (
-            link.getAttribute("href") ===
-            "#" + current
-        ) {
-            link.classList.add("active");
-        }
-
-    });
+});
 
 });
 
