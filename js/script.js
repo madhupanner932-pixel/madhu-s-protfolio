@@ -199,40 +199,19 @@ stats.forEach(stat => {
 // ===========================
 
 const sections =
-document.querySelectorAll("section");
+document.querySelectorAll("section[id]");
 
 const navLinks =
 document.querySelectorAll(".nav-links a");
 
-window.addEventListener("scroll", () => {
-
-    let current = "";
-
-    sections.forEach(section => {
-
-        const sectionTop =
-            section.offsetTop - 120;
-
-        const sectionHeight =
-            section.clientHeight;
-
-        if (
-            pageYOffset >= sectionTop
-        ) {
-            current =
-                section.getAttribute("id");
-        }
-
-    });
+function setActiveLink(id) {
 
     navLinks.forEach(link => {
 
         link.classList.remove("active");
 
-        if (
-            link.getAttribute("href") ===
-            "#" + current
-        ) {
+        if (link.getAttribute("href") === "#" + id) {
+
             link.classList.add("active");
 
             link.scrollIntoView({
@@ -244,6 +223,32 @@ window.addEventListener("scroll", () => {
 
     });
 
+}
+
+const navObserver = new IntersectionObserver(
+
+    (entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                setActiveLink(entry.target.id);
+            }
+
+        });
+
+    },
+
+    {
+        root: null,
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0
+    }
+
+);
+
+sections.forEach(section => {
+    navObserver.observe(section);
 });
 
 
