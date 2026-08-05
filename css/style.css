@@ -730,6 +730,8 @@ footer{
     .navbar{
         padding:14px 4%;
         gap:10px;
+        flex-direction:column;
+        align-items:flex-start;
     }
 
     .logo{
@@ -741,7 +743,7 @@ footer{
         display:flex;
         flex-direction:row;
         position:static;
-        width:auto;
+        width:100%;
         max-width:none;
         height:auto;
         background:transparent;
