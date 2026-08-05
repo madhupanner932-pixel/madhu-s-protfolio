@@ -199,51 +199,53 @@ stats.forEach(stat => {
 // ===========================
 
 const sections =
-document.querySelectorAll("section[id]");
+document.querySelectorAll("section");
 
 const navLinks =
 document.querySelectorAll(".nav-links a");
 
-const navObserver = new IntersectionObserver(
+window.addEventListener("scroll", () => {
 
-(entries) => {
+    let current = "";
 
-    entries.forEach(entry => {
+    sections.forEach(section => {
 
-        if (entry.isIntersecting) {
+        const sectionTop =
+            section.offsetTop - 120;
 
-            const id =
-                entry.target.getAttribute("id");
+        const sectionHeight =
+            section.clientHeight;
 
-            navLinks.forEach(link => {
-
-                const isActive =
-                    link.getAttribute("href") === "#" + id;
-
-                if (isActive && !link.classList.contains("active")) {
-                    link.classList.add("active");
-                } else if (!isActive && link.classList.contains("active")) {
-                    link.classList.remove("active");
-                }
-
-            });
-
+        if (
+            pageYOffset >= sectionTop
+        ) {
+            current =
+                section.getAttribute("id");
         }
 
     });
 
-},
+    navLinks.forEach(link => {
 
-{
-    threshold: 0.3,
-    rootMargin: "-120px 0px -60% 0px"
-}
+        link.classList.remove("active");
 
-);
+        if (
+            link.getAttribute("href") ===
+            "#" + current
+        ) {
+            link.classList.add("active");
 
-sections.forEach(section => {
-    navObserver.observe(section);
+            link.scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+                block: "nearest"
+            });
+        }
+
+    });
+
 });
+
 
 // ===========================
 // Console Message
